@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { ApiProperty } from '@nestjs/swagger';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum PaymentMethod {
   cash = 'cash',
@@ -12,7 +12,7 @@ export class Order {
   @ApiProperty()
   id!: string;
 
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @Column({ type: 'decimal' })
   @ApiProperty()
   amount!: number;
 
@@ -36,4 +36,3 @@ export class Order {
   @ApiProperty()
   paymentMethod!: PaymentMethod;
 }
-
