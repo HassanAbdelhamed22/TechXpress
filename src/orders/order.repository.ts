@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   DataSource,
   Repository,
@@ -43,7 +43,7 @@ export class OrderRepository {
     if (!order) {
       return null;
     }
-    
+
     return await this.repo.save({ ...order, ...updateOrderDto });
   }
 
