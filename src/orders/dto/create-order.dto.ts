@@ -1,21 +1,27 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { PaymentMethod } from '../entities/order.entity';
 import { IsNumber, IsPositive, IsNotEmpty, IsEnum } from 'class-validator';
 
 export class CreateOrderDto {
+  @ApiProperty()
   @IsNumber()
   @IsPositive()
-  amount: number;
+  amount!: number;
 
+  @ApiProperty()
   @IsNumber()
-  longitude: number;
+  longitude!: number;
 
+  @ApiProperty()
   @IsNumber()
-  latitude: number;
+  latitude!: number;
 
+  @ApiProperty()
   @IsNumber()
   @IsPositive()
-  clientId: number;
+  clientId!: number;
 
+  @ApiProperty()
   @IsEnum(PaymentMethod)
-  paymentMethod: PaymentMethod;
+  paymentMethod!: PaymentMethod;
 }

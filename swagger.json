@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/orders": {
+      "post": {
+        "operationId": "OrdersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      },
+      "get": {
+        "operationId": "OrdersController_findAll",
+        "parameters": [
+          {
+            "name": "clientId",
+            "required": false,
+            "in": "query",
+            "description": "Filter orders by client ID",
+            "schema": {
+              "example": 1001,
+              "type": "number"
+            }
+          },
+          {
+            "name": "paymentMethod",
+            "required": false,
+            "in": "query",
+            "description": "Filter orders by payment method",
+            "schema": {
+              "example": "visa",
+              "type": "string",
+              "enum": [
+                "cash",
+                "visa"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      }
+    },
+    "/orders/{id}": {
+      "get": {
+        "operationId": "OrdersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      },
+      "patch": {
+        "operationId": "OrdersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOrderDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      },
+      "delete": {
+        "operationId": "OrdersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "orders"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Tech-Xpress Orders API",
+    "description": "API for managing delivery orders",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateOrderDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Order amount in currency units",
+            "example": 150.5
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Delivery location longitude",
+            "example": 30.0444
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Delivery location latitude",
+            "example": 31.2357
+          },
+          "clientId": {
+            "type": "number",
+            "description": "Client ID who placed the order",
+            "example": 1001
+          },
+          "paymentMethod": {
+            "type": "string",
+            "description": "Payment method for the order",
+            "enum": [
+              "cash",
+              "visa"
+            ],
+            "example": "visa"
+          }
+        },
+        "required": [
+          "amount",
+          "longitude",
+          "latitude",
+          "clientId",
+          "paymentMethod"
+        ]
+      },
+      "UpdateOrderDto": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Updated order amount",
+            "example": 175.75
+          },
+          "longitude": {
+            "type": "number",
+            "description": "Updated delivery longitude",
+            "example": 30.0444
+          },
+          "latitude": {
+            "type": "number",
+            "description": "Updated delivery latitude",
+            "example": 31.2357
+          },
+          "clientId": {
+            "type": "number",
+            "description": "Updated client ID",
+            "example": 1002
+          },
+          "paymentMethod": {
+            "type": "string",
+            "description": "Updated payment method",
+            "enum": [
+              "cash",
+              "visa"
+            ],
+            "example": "cash"
+          }
+        }
+      }
+    }
+  }
+}
