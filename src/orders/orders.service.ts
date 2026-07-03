@@ -29,7 +29,13 @@ export class OrdersService {
   }
 
   async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
-    return await this.orderRepository.update(id, updateOrderDto);
+    const updatedOrder = await this.orderRepository.update(id, updateOrderDto);
+
+    if (!updatedOrder) {
+      throw new NotFoundException(`Order with ID ${id} not found`);
+    }
+
+    return updatedOrder;
   }
 
   async remove(id: string): Promise<void> {

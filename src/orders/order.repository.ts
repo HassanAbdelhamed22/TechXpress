@@ -1,5 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DataSource, Repository, DeleteResult, FindOptionsWhere } from 'typeorm';
+import {
+  DataSource,
+  Repository,
+  DeleteResult,
+  FindOptionsWhere,
+} from 'typeorm';
 import { Order } from './entities/order.entity';
 import { GetOrderFilterDto } from './dto/get-order-filter.dto';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -29,11 +34,16 @@ export class OrderRepository {
     return await this.repo.delete(id);
   }
 
-  async update(id: string, updateOrderDto: UpdateOrderDto): Promise<Order> {
+  async update(
+    id: string,
+    updateOrderDto: UpdateOrderDto,
+  ): Promise<Order | null> {
     const order = await this.findOneBy({ id });
+
     if (!order) {
-      throw new NotFoundException(`Order with ID ${id} not found`);
+      return null;
     }
+    
     return await this.repo.save({ ...order, ...updateOrderDto });
   }
 
