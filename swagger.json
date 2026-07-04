@@ -43,26 +43,18 @@
         "parameters": [
           {
             "name": "clientId",
-            "required": false,
+            "required": true,
             "in": "query",
-            "description": "Filter orders by client ID",
             "schema": {
-              "example": 1001,
               "type": "number"
             }
           },
           {
             "name": "paymentMethod",
-            "required": false,
+            "required": true,
             "in": "query",
-            "description": "Filter orders by payment method",
             "schema": {
-              "example": "visa",
-              "type": "string",
-              "enum": [
-                "cash",
-                "visa"
-              ]
+              "type": "string"
             }
           }
         ],
@@ -166,33 +158,19 @@
         "type": "object",
         "properties": {
           "amount": {
-            "type": "number",
-            "description": "Order amount in currency units",
-            "example": 150.5
+            "type": "number"
           },
           "longitude": {
-            "type": "number",
-            "description": "Delivery location longitude",
-            "example": 30.0444
+            "type": "number"
           },
           "latitude": {
-            "type": "number",
-            "description": "Delivery location latitude",
-            "example": 31.2357
+            "type": "number"
           },
           "clientId": {
-            "type": "number",
-            "description": "Client ID who placed the order",
-            "example": 1001
+            "type": "number"
           },
           "paymentMethod": {
-            "type": "string",
-            "description": "Payment method for the order",
-            "enum": [
-              "cash",
-              "visa"
-            ],
-            "example": "visa"
+            "type": "string"
           }
         },
         "required": [
@@ -207,19 +185,13 @@
         "type": "object",
         "properties": {
           "amount": {
-            "type": "number",
-            "description": "Updated order amount",
-            "example": 175.75
+            "type": "number"
           },
           "longitude": {
-            "type": "number",
-            "description": "Updated delivery longitude",
-            "example": 30.0444
+            "type": "number"
           },
           "latitude": {
-            "type": "number",
-            "description": "Updated delivery latitude",
-            "example": 31.2357
+            "type": "number"
           },
           "clientId": {
             "type": "number",
@@ -235,7 +207,12 @@
             ],
             "example": "cash"
           }
-        }
+        },
+        "required": [
+          "amount",
+          "longitude",
+          "latitude"
+        ]
       }
     }
   }
