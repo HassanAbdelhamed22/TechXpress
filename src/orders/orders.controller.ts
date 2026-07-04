@@ -11,28 +11,30 @@ import {
   HttpStatus,
   ParseUUIDPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { GetOrderFilterDto } from './dto/get-order-filter.dto';
 import { Order } from './entities/order.entity';
 
+@ApiTags('orders')
 @Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto): Order {
+  create(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
     return this.ordersService.create(createOrderDto);
   }
 
   @Get()
-  findAll(@Query() filterDto: GetOrderFilterDto): Order[] {
+  findAll(@Query() filterDto: GetOrderFilterDto): Promise<Order[]> {
     return this.ordersService.findAll(filterDto);
   }
 
   @Get(':id')
-  findOne(@Param('id', ParseUUIDPipe) id: string): Order {
+  findOne(@Param('id', ParseUUIDPipe) id: string): Promise<Order> {
     return this.ordersService.findOne(id);
   }
 
@@ -40,13 +42,14 @@ export class OrdersController {
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateOrderDto: UpdateOrderDto,
-  ): Order {
+  ): Promise<Order> {
     return this.ordersService.update(id, updateOrderDto);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  remove(@Param('id', ParseUUIDPipe) id: string): void {
-    this.ordersService.remove(id);
+  remove(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
+    return this.ordersService.remove(id);
   }
 }
+
